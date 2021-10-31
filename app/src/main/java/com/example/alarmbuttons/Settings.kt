@@ -1,6 +1,5 @@
 package com.example.alarmbuttons
 
-// Дата класс объекта с настройками
 internal data class Settings(
     var count: Int = 0,
     var name: String = "",

@@ -19,13 +19,12 @@ import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import org.jetbrains.anko.*
 
-// Основной экран программы
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val degree = listOf("Низкий", "Средний", "Высокий") // список с уровнями опасности
-    private lateinit var latitude: String // широта
-    private lateinit var longitude: String // долгота
+    private val degree = listOf("Низкий", "Средний", "Высокий")
+    private lateinit var latitude: String
+    private lateinit var longitude: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +32,11 @@ class StartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         try {
-            loadSettings() // Загружает и проверяет настройки
-            setPermissions() // Проверяет и запрашивает разрешения
-            loadLocation() // Загружает координаты по GPS
-        } catch (e: Exception) { toast("Неизвестная ошибка!!!") } // Обрабатываем возможные ошибки
+            loadSettings()
+            setPermissions()
+            loadLocation()
+        } catch (e: Exception) { toast("Неизвестная ошибка!!!") }
 
-        // Назначает слушателей на кнопки
         binding.apply {
             imageViewFire.setOnClickListener { sendAlert("Пожар", 2, settings.fireDepartment) }
             imageViewAssault.setOnClickListener { sendAlert("Нападение", 2, settings.police) }
@@ -49,33 +47,28 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
-    // Загружает и проверяет настройки
     private fun loadSettings() {
-        preferences = getSharedPreferences(KEY_SETTINGS, MODE_PRIVATE) // открываем файл настроек приложения для чтения и записи
-        val json = preferences.getString(KEY_SETTINGS, "") // Загружаем настройки из файла настроек приложения в json строку
-        if (!json.isNullOrEmpty()) settings = Gson().fromJson(json, Settings::class.java) // Если настройки не пусты, получаем объект класса Settings из json
+        preferences = getSharedPreferences(KEY_SETTINGS, MODE_PRIVATE)
+        val json = preferences.getString(KEY_SETTINGS, "")
+        if (!json.isNullOrEmpty()) settings = Gson().fromJson(json, Settings::class.java)
 
-        // Если приложение запущенно первый раз или не заполнены поля name, lastName и myNumber
         if (settings.name == "" || settings.lastName == "" || settings.grade == "" || settings.myNumber == "") {
-            // Предупреждает о необходимости полей для работы приложения
             alert ("Для продолжения работы с\n" +
                     "приложением, необходимо\n" +
                     "ввести ваши имя, фамилию\n" +
                     "класс и номер телефона.", "Внимание!"
             ) {
                 yesButton {
-                    startActivity<SettingsActivity>() // Если "Ok", то перемещаемся на экран настроек
+                    startActivity<SettingsActivity>()
                 }
-                noButton { finishAffinity() } // Если "Отмена", завершаем приложение
+                noButton { finishAffinity() }
             }.show()
         }
     }
-
-    // Загружает координаты по GPS
+    
     @SuppressLint("MissingPermission")
     private fun loadLocation() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this) // создаём службу геолокации
-        // Загружаем текущее местоположение и сохранёем широту и долготу
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation.addOnSuccessListener {
             if (it != null) {
                 latitude = it.latitude.toString()
@@ -84,41 +77,34 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
-    // Проверяет и запрашивает разрешения (последовательные диалоги накладываются друг на друга, поэтому идут в обратном порядке)
     private fun setPermissions() {
-        // Если приложению запрещены звонки, отправка СМС и геолокация, выдаём диалог о том, что требуется перезапуск, он нужен для определения координат (2й диалог)
         if (!isPermissionCallPhone() || !isPermissionSendSMS() || !isPermissionFineLocation() || !isPermissionCoarseLocation()) {
             alert ("Для применения разрешений необходимо перезапустить приложение.") {
-                positiveButton("Перезапустить") { recreate() } // Если "Перезапустить", то перезапускаем приложение
-                noButton {  } // Если "Отмена", продолжаем работу с приложением, на случай отсутствие на устройстве Google сервисов
+                positiveButton("Перезапустить") { recreate() }
+                noButton {  }
             }.show()
         }
 
-        // Если приложению запрещены звонки, отправка СМС и геолокация, выдаём диалог предупреждения (1й диалог)
         if (!isPermissionCallPhone() || !isPermissionSendSMS() || !isPermissionFineLocation() || !isPermissionCoarseLocation()) {
             alert ("Это приложение требует\n" +
                     "разрешения звонить,\n" +
                     "отправлять смс и доступ\n" +
                     "к координатам по GPS!", "Внимание!") {
-                // Если "Ok", запрашиваем разрешения
                 yesButton {
                     ActivityCompat.requestPermissions(this@StartActivity, arrayOf(Manifest.permission.CALL_PHONE,
                         Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 987)
                 }
-                noButton { finishAffinity() } // Если "Отмена", завершаем приложение
+                noButton { finishAffinity() }
             }.show()
         }
     }
 
     private fun sendAlert(info: String, lvlArg: Int = 0, tel: String = settings.teacher) {
-        // аргумент метода защищён от записи, поэтому создаём локальную переменную
         var lvl = lvlArg
 
-        // Диалог подтверждения
         alert ("Вы уверены? После согласия\n" +
                 "информация поступит в\n" +
                 "соответствующие службы!", "$info?") {
-            // Если "Да", то отправляем СМС и делаем звонок
             positiveButton ("Да") {
                 sendSMS(info, lvl, settings.principal)
                 sendSMS(info, lvl, settings.teacher)
@@ -128,15 +114,11 @@ class StartActivity : AppCompatActivity() {
                     makeCall(tel)
                 } catch (e: Exception) {  }
 
-                // увеличиваем счётчик использования "тревожной кнопки", это поможет от заведомо ложных оповещений
                 settings.count++
-
-                toast(smsText(info, lvl)) // метод отладки смс (не будем же мы по настоящему звонить в полицию?)
             }
             noButton {  }
         }.show()
 
-        // Если в оргументах метода не укзан уровень угрозы или указан 0(низкий), то запрашиваем и изменяем уровень угрозы
         if (lvl == 0) {
             selector("Выберите уровень опасности!", degree) { _, i ->
                 lvl = i
@@ -147,32 +129,24 @@ class StartActivity : AppCompatActivity() {
     private fun sendSMS(info: String, lvl: Int, tel: String) {
         try {
             SmsManager.getDefault().sendTextMessage(tel, null, smsText(info, lvl), null, null)
-            // Если не удалось получить координаты, то отправляет их во втором СМС сообщении
             if (latitude.isNotEmpty()) {
                 SmsManager.getDefault().sendTextMessage(tel, null, "широта: $latitude долгота: $longitude", null, null)
             }
-        } catch (e: Exception) { toast("Невозможно отправить СМС на номер $tel") }// На случай неправильных номеров и невозможности отправить СМС
+        } catch (e: Exception) { toast("Невозможно отправить СМС на номер $tel") }
     }
 
-    // Возвращает строку с СМС сообщением:
-    // "3 последний цифры номера" + "количество нажатий тревожной кнопки" + "уровень опасности" + "что произошло" + "фамилия" + "имя" + "класс"
-    // Последние цифры номера, это защита от дурака, если номер не совпадает с реальным, то высока вероятность ложной тревоги
-    // Длинна смс кирилицей сильно ограниченна, поэтому сообщенние такое "компактное"
     private fun smsText(info: String, lvl: Int): String {
         return "${settings.myNumber.takeLast(3)} ${settings.count} $info ${degree[lvl]} ${settings.lastName} ${settings.name} ${settings.grade}"
     }
 
-    // Проверяем разрешение на звонки
     private fun isPermissionCallPhone(): Boolean {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Проверяем разрешение на отправку СМС
     private fun isPermissionSendSMS(): Boolean {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Проверяем разрешени на геолокацию
     private fun isPermissionFineLocation(): Boolean {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
@@ -180,13 +154,11 @@ class StartActivity : AppCompatActivity() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Создаём меню в actionBar из файла R.menu.menu_main.xml
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    // При нажатии на пункт меню "Настройки", переходим на экран с настройками
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuSettings -> startActivity<SettingsActivity>()
@@ -194,11 +166,10 @@ class StartActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    // Сохраняем настройки приложения в состоянии паузы (на этом экране количество нажатий "тревожная кнопка")
     override fun onPause() {
         super.onPause()
 
-        val json = Gson().toJson(settings) // Сохраняем объект settings(настройки) в json строку
-        preferences.edit().putString(KEY_SETTINGS, json).apply() // Сохраняем json в файл настроек приложения
+        val json = Gson().toJson(settings)
+        preferences.edit().putString(KEY_SETTINGS, json).apply()
     }
 }

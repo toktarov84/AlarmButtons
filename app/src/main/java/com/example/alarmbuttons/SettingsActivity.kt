@@ -12,7 +12,6 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 
-// Экран настроек
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
 
@@ -21,9 +20,8 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Добавляем на actionBar стрелочку назад
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Из загруженных настроек заполняем поля на экране
         binding.apply {
             editTextName.setText(settings.name)
             editTextLastName.setText(settings.lastName)
@@ -35,25 +33,21 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    // Переназначаем аппаратную кнопку "назад"
     override fun onBackPressed() {
         onPause()
-        // Если не заполнены поля имя, фамилия, класс и ваш номер телефона
         if (settings.name == "" || settings.lastName == "" || settings.grade == "" || settings.myNumber == "") {
-            // Создаётся предупреждение
             alert(
                 "Для продолжения работы с\n" +
                         "приложением, необходимо\n" +
                         "ввести ваши имя, фамилию\n" +
                         "класс и номер телефона.", "Внимание!"
             ) {
-                yesButton { } // "Ok" ничего не делает
-                noButton { finishAffinity() } // "Отмена" завершает приложение
+                yesButton { }
+                noButton { finishAffinity() }
             }.show()
-        } else super.onBackPressed() // Иначе исходная функция аппаратной кнопки "назад"(возрващенние на предыдущий экран)
+        } else super.onBackPressed()
     }
 
-    // Если нажата стрелочка "назад" на actionBar, то вызывается функция аппаратной кнопки "назад"
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
@@ -61,11 +55,9 @@ class SettingsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    // Сохраняем настройки приложения в состоянии паузы
     override fun onPause() {
         super.onPause()
 
-        // Сохраняем все настройки в объект settings
         binding.apply {
             settings.name = editTextName.text.toString()
             settings.lastName = editTextLastName.text.toString()
@@ -76,7 +68,7 @@ class SettingsActivity : AppCompatActivity() {
             settings.parent = editTextParent.text.toString()
         }
 
-        val json = Gson().toJson(settings) // Сохранем объект settings в json строку
-        preferences.edit().putString(KEY_SETTINGS, json).apply() // Сохраняем json в файл настроек приложения
+        val json = Gson().toJson(settings)
+        preferences.edit().putString(KEY_SETTINGS, json).apply()
     }
 }
