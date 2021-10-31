@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Имя:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="введите имя"
+                android:inputType="textCapWords"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Фамилия:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="введите фамилию"
+                android:inputType="textCapWords"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textGrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Класс:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextGrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="введите класс"
+                android:inputType="textVisiblePassword"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textMyNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Ваш номер телефона:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextMyNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/enter_phone_number"
+                android:inputType="phone"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/teacher"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="101dp"
+                tools:layout_editor_absoluteY="119dp" />
+
+            <EditText
+                android:id="@+id/editTextTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/enter_phone_number"
+                android:inputType="phone"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="101dp"
+                tools:layout_editor_absoluteY="159dp" />
+
+            <TextView
+                android:id="@+id/textPrincipal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/principal"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="163dp"
+                tools:layout_editor_absoluteY="17dp" />
+
+            <EditText
+                android:id="@+id/editTextPrincipal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/enter_phone_number"
+                android:inputType="phone"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="101dp"
+                tools:layout_editor_absoluteY="57dp" />
+
+            <TextView
+                android:id="@+id/textParent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/parent"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="179dp"
+                tools:layout_editor_absoluteY="221dp" />
+
+            <EditText
+                android:id="@+id/editTextParent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/enter_phone_number"
+                android:inputType="phone"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="101dp"
+                tools:layout_editor_absoluteY="261dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

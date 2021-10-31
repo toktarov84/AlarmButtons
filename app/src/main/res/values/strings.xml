@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Тревожная кнопка</string>
+    <string name="settings">Настройки</string>
+    <string name="principal">Директор:</string>
+    <string name="teacher">Классный руководитель:</string>
+    <string name="police">Полиция:</string>
+    <string name="ambulance">Скорая помощь:</string>
+    <string name="emergency">Служба спасения:</string>
+    <string name="enter_phone_number">номер телефона</string>
+    <string name="fireDepartment">Пожарные</string>
+    <string name="parent">Родитель:</string>
+    <string name="disclaimer">
+        Будьте внимательны!\n
+        Заведомо ложный вызов\n
+        - это серьзное нарушение\n
+        закона, несущее за собой\n
+        административную и \n
+        уголовную ответственность.
+    </string>
+    <string name="other_hint">Другое</string>
+    <string name="fire_hint">Пожар</string>
+    <string name="fight_hint">Драка</string>
+    <string name="theft_hint">Кража</string>
+    <string name="ambulance_hint">Скорая\nпомощь</string>
+    <string name="assault_hint">Нападение</string>
+</resources>

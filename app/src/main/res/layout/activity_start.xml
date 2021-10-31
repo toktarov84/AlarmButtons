@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StartActivity">
+
+    <TextView
+        android:id="@+id/textDisclaimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="#BFFFFFFF"
+        android:gravity="center"
+        android:text="@string/disclaimer"
+        android:textColor="#F44336"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewAssault"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewOther"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/other_hint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewOther"
+        app:layout_constraintStart_toStartOf="@+id/imageViewOther"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewOther" />
+
+    <TextView
+        android:id="@+id/textViewFire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/fire_hint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewFire"
+        app:layout_constraintStart_toStartOf="@+id/imageViewFire"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFire" />
+
+    <TextView
+        android:id="@+id/textViewFight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/fight_hint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewFight"
+        app:layout_constraintStart_toStartOf="@+id/imageViewFight"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFight" />
+
+    <TextView
+        android:id="@+id/textViewTheft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/theft_hint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewTheft"
+        app:layout_constraintStart_toStartOf="@+id/imageViewTheft"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewTheft" />
+
+    <TextView
+        android:id="@+id/textViewAmbulance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/ambulance_hint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAmbulance"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAmbulance"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAmbulance" />
+
+    <ImageView
+        android:id="@+id/imageViewAssault"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="48dp"
+        android:background="#BFFFFFFF"
+        android:contentDescription="@string/ambulance_hint"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewAmbulance"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewFight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFire"
+        app:srcCompat="@drawable/assault" />
+
+    <ImageView
+        android:id="@+id/imageViewFire"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="48dp"
+        android:background="#BFFFFFFF"
+        android:contentDescription="@string/fire_hint"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewTheft"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewAssault"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/fire" />
+
+    <ImageView
+        android:id="@+id/imageViewFight"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="48dp"
+        android:background="#BFFFFFFF"
+        android:contentDescription="@string/fight_hint"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewOther"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAssault"
+        app:srcCompat="@drawable/fight" />
+
+    <ImageView
+        android:id="@+id/imageViewOther"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="64dp"
+        android:contentDescription="@string/other_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAmbulance"
+        app:srcCompat="@drawable/icon"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageViewAmbulance"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="64dp"
+        android:background="#BFFFFFFF"
+        android:contentDescription="@string/ambulance_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewOther"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewTheft"
+        app:srcCompat="@drawable/ambulance" />
+
+    <ImageView
+        android:id="@+id/imageViewTheft"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="64dp"
+        android:background="#BFFFFFFF"
+        android:contentDescription="@string/theft_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewAmbulance"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/thief" />
+
+    <TextView
+        android:id="@+id/textViewAssault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/assault_hint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAssault"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAssault"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAssault" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
